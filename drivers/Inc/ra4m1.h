@@ -11,6 +11,7 @@
 /************************** BASE ADDRESSES **************************/
 
 #define PWPR_BASEADDR               0x40040D03UL
+#define PFS_BASEADDR                0x40040800UL
 
 #define PORT0_BASEADDR              0x40040000UL
 #define PORT1_BASEADDR              0x40040020UL
