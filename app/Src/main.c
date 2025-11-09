@@ -1,15 +1,12 @@
-#include <stdint.h>
 #include "ra4m1.h"
+#include "config.h"
 
 #include "driver_gpio.h"
 
 
 int main(void)
 {
-    // config pin
-    GPIO_PfsweControl(ENABLE);
-    MMIO32(0x40040020) |= (1 << 11);
-    GPIO_PfsweControl(DISABLE);
+    config_drivers();
 
     while(1)
     {
