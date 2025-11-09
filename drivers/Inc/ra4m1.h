@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <stddef.h>
 
 #define __vo volatile
 #define MMIO32(addr) (*(volatile uint32_t *)(addr))

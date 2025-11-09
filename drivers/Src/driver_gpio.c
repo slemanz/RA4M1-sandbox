@@ -45,6 +45,21 @@ void GPIO_Init(GPIO_PinConfig_t *pGPIOConfig)
     GPIO_PfsweControl(DISABLE);
 }
 
+void GPIO_Init_table(const GPIO_PinConfig_t *pGPIOConfig, uint32_t Len)
+{
+    if(pGPIOConfig == NULL)
+    {
+        return;
+    }
+
+    for(uint32_t i = 0; i < Len; i++)
+    {
+        GPIO_Init((GPIO_PinConfig_t*)&pGPIOConfig[i]);
+    }
+
+
+}
+
 void GPIO_WriteToOutputPin(PORT_RegDef_t *pPORTx, uint8_t PinNumber, uint8_t value)
 {
     if(value == GPIO_SET)
