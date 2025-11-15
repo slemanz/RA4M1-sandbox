@@ -11,7 +11,7 @@
 #define SYSTICK_CTRL_COUNTFLAG              (1U << 16)
 #define SYSTICK_CTRL_TICKINT                (1U << 1)
 
-void systick_init(uint32_t tick_hz);
+void systick_init(uint32_t clock, uint32_t tick_hz);
 uint64_t ticks_get(void);
 void ticks_delay(uint64_t delay);
 
