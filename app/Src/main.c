@@ -5,6 +5,8 @@
 #include "driver_gpio.h"
 #include "driver_systick.h"
 
+#include "bsp/led.h"
+
 
 int main(void)
 {
@@ -19,6 +21,7 @@ int main(void)
         if((ticks_get() - start_time) >= 100)
         {
             GPIO_ToggleOutputPin(PORT1, GPIO_PIN_NO_11);
+            led_toggle();
             start_time = ticks_get();
         }
     }
