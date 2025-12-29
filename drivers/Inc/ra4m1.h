@@ -20,6 +20,13 @@
 #define PORT0_BASEADDR              0x40040000UL
 #define PORT1_BASEADDR              0x40040020UL
 #define PORT2_BASEADDR              0x40040040UL
+#define PORT3_BASEADDR              0x40040060UL
+#define PORT4_BASEADDR              0x40040080UL
+#define PORT5_BASEADDR              0x400400A0UL
+#define PORT6_BASEADDR              0x400400C0UL
+#define PORT7_BASEADDR              0x400400E0UL
+#define PORT8_BASEADDR              0x40040100UL
+#define PORT9_BASEADDR              0x40040120UL
 
 #define SCS_BASE            				(0xE000E000UL)
 #define SYSTICK_BASEADDR					(SCS_BASE + 0x0010UL)
@@ -67,6 +74,13 @@ typedef struct
 #define PORT0                       ((PORT_RegDef_t*)PORT0_BASEADDR)
 #define PORT1                       ((PORT_RegDef_t*)PORT1_BASEADDR)
 #define PORT2                       ((PORT_RegDef_t*)PORT2_BASEADDR)
+#define PORT3                       ((PORT_RegDef_t*)PORT3_BASEADDR)
+#define PORT4                       ((PORT_RegDef_t*)PORT4_BASEADDR)
+#define PORT5                       ((PORT_RegDef_t*)PORT5_BASEADDR)
+#define PORT6                       ((PORT_RegDef_t*)PORT6_BASEADDR)
+#define PORT7                       ((PORT_RegDef_t*)PORT7_BASEADDR)
+#define PORT8                       ((PORT_RegDef_t*)PORT8_BASEADDR)
+#define PORT9                       ((PORT_RegDef_t*)PORT9_BASEADDR)
 
 #define SYSTICK         ((SysTick_RegDef_t*)SYSTICK_BASEADDR) 
 

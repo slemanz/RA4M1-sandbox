@@ -87,6 +87,12 @@ static uint32_t gpio_get_pfs(PORT_RegDef_t *pPORTx, uint8_t pin)
     }else if(pPORTx == PORT2)
     {
         return  (PFS_BASEADDR + 0x80 + 4*pin);
+    }else if(pPORTx == PORT3)
+    {
+        return  (PFS_BASEADDR + 0xC0 + 4*pin);
+    }else if(pPORTx == PORT4)
+    {
+        return  (PFS_BASEADDR + 0x100 + 4*pin);
     }
 
     return 0;
