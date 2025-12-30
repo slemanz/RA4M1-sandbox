@@ -31,6 +31,7 @@ void GPIO_Init(GPIO_PinConfig_t *pGPIOConfig)
     }else if(pGPIOConfig->GPIO_PinMode == GPIO_MODE_PSEL)
     {
         temp |= (pGPIOConfig->GPIO_PeriphSel << 24);
+        temp |= (1 << 16);
     }
 
     temp |= (pGPIOConfig->GPIO_PinPuControl << 4);
