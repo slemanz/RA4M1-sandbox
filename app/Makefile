@@ -39,6 +39,7 @@ OBJS		+= $(BUILD_DIR)/startup.o
 DRIVERS		+= $(BUILD_DIR)/driver_clock.o
 DRIVERS		+= $(BUILD_DIR)/driver_systick.o
 DRIVERS		+= $(BUILD_DIR)/driver_gpio.o
+DRIVERS		+= $(BUILD_DIR)/driver_sci.o
 
 CORE		+= $(BUILD_DIR)/simple-timer.o
 
