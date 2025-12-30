@@ -84,8 +84,16 @@ typedef struct
  * GPIO pin possible modes
  */
 
- #define GPIO_PIN_PSEL_DEFAULT      0
+#define GPIO_PIN_PSEL_0            0
+#define GPIO_PIN_PSEL_1            1
+#define GPIO_PIN_PSEL_2            2
+#define GPIO_PIN_PSEL_3            3
+#define GPIO_PIN_PSEL_4            4
+#define GPIO_PIN_PSEL_5            5
+#define GPIO_PIN_PSEL_6            6
 
+#define GPIO_PIN_PSEL_DEFAULT           GPIO_PIN_PSEL_0
+#define GPIO_PIN_P302_SCI2_TXD          GPIO_PIN_PSEL_4
 
 /********************************************************************************************
  * 								APIs supported by this driver
