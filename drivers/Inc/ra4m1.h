@@ -31,6 +31,11 @@
 #define SCS_BASE            				(0xE000E000UL)
 #define SYSTICK_BASEADDR					(SCS_BASE + 0x0010UL)
 
+#define SCI0_BASEADDR               0x40070000UL
+#define SCI1_BASEADDR               0x40070020UL
+#define SCI2_BASEADDR               0x40070040UL
+#define SCI9_BASEADDR               0x40070120UL
+
 /************************** REG ADDRESSES ***************************/
 
 // Write Protection
@@ -61,6 +66,130 @@ typedef struct
 	__vo uint32_t PCNTR4;  // not available for all ports
 }PORT_RegDef_t;
 
+typedef struct 
+{
+    union
+    {
+        __vo uint8_t SMR;               /*!< (@ 0x00000000) Serial Mode Register (SCMR.SMIF = 0)                       */
+        __vo uint8_t SMR_SMCI;          /*!< (@ 0x00000000) Serial mode register (SCMR.SMIF = 1)                       */
+    };
+
+    __vo uint8_t BRR;                   /*!< (@ 0x00000001) Bit Rate Register                                          */
+
+    union
+    {
+        __vo uint8_t SCR;               /*!< (@ 0x00000002) Serial Control Register (SCMR.SMIF = 0)                    */
+        __vo uint8_t SCR_SMCI;          /*!< (@ 0x00000002) Serial Control Register (SCMR.SMIF =1)                     */
+    };
+
+    __vo uint8_t TDR;                   /*!< (@ 0x00000003) Transmit Data Register                                     */
+
+    union
+    {
+        __vo uint8_t SSR;               /*!< (@ 0x00000004) Serial Status Register(SCMR.SMIF = 0 and FCR.FM=0)         */
+        __vo uint8_t SSR_FIFO;          /*!< (@ 0x00000004) Serial Status Register(SCMR.SMIF = 0 and FCR.FM=1)         */
+        __vo uint8_t SSR_MANC;          /*!< (@ 0x00000004) Serial Status Register for Manchester Mode (SCMR.SMIF */
+        __vo uint8_t SSR_SMCI;          /*!< (@ 0x00000004) Serial Status Register(SCMR.SMIF = 1)                      */
+    };
+
+    __vo uint8_t RDR;                   /*!< (@ 0x00000005) Receive Data Register                                      */
+    __vo uint8_t SCMR;                  /*!< (@ 0x00000006) Smart Card Mode Register                                   */
+    __vo uint8_t SEMR;                  /*!< (@ 0x00000007) Serial Extended Mode Register                              */
+    __vo uint8_t SNFR;                  /*!< (@ 0x00000008) Noise Filter Setting Register                              */
+    __vo uint8_t SIMR1;                 /*!< (@ 0x00000009) I2C Mode Register 1                                        */
+    __vo uint8_t SIMR2;                 /*!< (@ 0x0000000A) I2C Mode Register 2                                        */
+    __vo uint8_t SIMR3;                 /*!< (@ 0x0000000B) I2C Mode Register 3                                        */
+    __vo uint8_t SISR;                  /*!< (@ 0x0000000C) I2C Status Register                                        */
+    __vo uint8_t SPMR;                  /*!< (@ 0x0000000D) SPI Mode Register                                          */
+
+    union
+    {
+        __vo uint16_t TDRHL;            /*!< (@ 0x0000000E) Transmit 9-bit Data Register                               */
+        __vo uint16_t FTDRHL;           /*!< (@ 0x0000000E) Transmit FIFO Data Register HL                             */
+        __vo uint16_t TDRHL_MAN;        /*!< (@ 0x0000000E) Transmit Data Register for Manchester Mode (MMR.MANEN      */
+
+        struct
+        {
+            __vo uint8_t FTDRH;         /*!< (@ 0x0000000E) Transmit FIFO Data Register H                              */
+            __vo uint8_t FTDRL;         /*!< (@ 0x0000000F) Transmit FIFO Data Register L                              */
+        };
+    };
+
+    union
+    {
+        __vo uint16_t RDRHL;            /*!< (@ 0x00000010) Receive 9-bit Data Register                                */
+        __vo uint16_t FRDRHL;           /*!< (@ 0x00000010) Receive FIFO Data Register HL                              */
+        __vo uint16_t RDRHL_MAN;        /*!< (@ 0x00000010) Receive Data Register for Manchester Mode (MMR.MANEN       */
+
+        struct
+        {
+            __vo uint8_t FRDRH;         /*!< (@ 0x00000010) Receive FIFO Data Register H                               */
+            __vo uint8_t FRDRL;         /*!< (@ 0x00000011) Receive FIFO Data Register L                               */
+        };
+    };
+
+    __vo uint8_t MDDR;                  /*!< (@ 0x00000012) Modulation Duty Register                                   */
+    __vo uint8_t DCCR;                  /*!< (@ 0x00000013) Data Compare Match Control Register                        */
+    __vo uint16_t FCR;                  /*!< (@ 0x00000014) FIFO Control Register                                      */
+    __vo uint16_t FDR;                  /*!< (@ 0x00000016) FIFO Data Count Register                                   */
+    __vo uint16_t LSR;                  /*!< (@ 0x00000018) Line Status Register                                       */
+    __vo uint16_t CDR;                  /*!< (@ 0x0000001A) Compare Match Data Register                                */
+    __vo uint8_t SPTR;                  /*!< (@ 0x0000001C) Serial Port Register                                       */
+    __vo uint8_t ACTR;                  /*!< (@ 0x0000001D) Adjustment Communication Timing Register                   */
+    __vo uint16_t RESERVED;
+
+    union
+    {
+        __vo uint8_t ESMER;             /*!< (@ 0x00000020) Extended Serial Module Enable Register                     */
+        __vo uint8_t MMR;               /*!< (@ 0x00000020) Manchester Mode Register                                   */
+    };
+
+    __vo uint8_t CR0;                   /*!< (@ 0x00000021) Control Register 0                                         */
+
+    union
+    {
+        __vo uint8_t CR1;               /*!< (@ 0x00000022) Control Register 1                                         */
+        __vo uint8_t TMPR;              /*!< (@ 0x00000022) Transmit Manchester Preface Setting Register               */
+    };
+
+    union
+    {
+        __vo uint8_t CR2;               /*!< (@ 0x00000023) Control Register 2                                         */
+        __vo uint8_t RMPR;              /*!< (@ 0x00000023) Receive Manchester Preface Setting Register                */
+    };
+
+    union
+    {
+        __vo uint8_t CR3;               /*!< (@ 0x00000024) Control Register 3                                         */
+        __vo uint8_t MESR;              /*!< (@ 0x00000024) Manchester Extended Error Status Register                  */
+    };
+
+    union
+    {
+        __vo uint8_t PCR;               /*!< (@ 0x00000025) Port Control Register                                      */
+        __vo uint8_t MECR;              /*!< (@ 0x00000025) Manchester Extended Error Control Register                 */
+    };
+
+    __vo uint8_t ICR;                   /*!< (@ 0x00000026) Interrupt Control Register                                 */
+    __vo uint8_t STR;                   /*!< (@ 0x00000027) Status Register                                            */
+    __vo uint8_t STCR;                  /*!< (@ 0x00000028) Status Clear Register                                      */
+    __vo uint8_t CF0DR;                 /*!< (@ 0x00000029) Control Field 0 Data Register                              */
+    __vo uint8_t CF0CR;                 /*!< (@ 0x0000002A) Control Field 0 Compare Enable Register                    */
+    __vo uint8_t CF0RR;                 /*!< (@ 0x0000002B) Control Field 0 Receive Data Register                      */
+    __vo uint8_t PCF1DR;                /*!< (@ 0x0000002C) Primary Control Field 1 Data Register                      */
+    __vo uint8_t SCF1DR;                /*!< (@ 0x0000002D) Secondary Control Field 1 Data Register                    */
+    __vo uint8_t CF1CR;                 /*!< (@ 0x0000002E) Control Field 1 Compare Enable Register                    */
+    __vo uint8_t CF1RR;                 /*!< (@ 0x0000002F) Control Field 1 Receive Data Register                      */
+    __vo uint8_t TCR;                   /*!< (@ 0x00000030) Timer Control Register                                     */
+    __vo uint8_t TMR;                   /*!< (@ 0x00000031) Timer Mode Register                                        */
+    __vo uint8_t TPRE;                  /*!< (@ 0x00000032) Timer Prescaler Register                                   */
+    __vo uint8_t TCNT;                  /*!< (@ 0x00000033) Timer Count Register                                       */
+    __vo uint16_t RESERVED1[4];
+    __vo uint8_t SCIMSKEN;              /*!< (@ 0x0000003C) SCI5 TXD Output Mask Enable Register                       */
+    __vo uint8_t  RESERVED2;
+    __vo uint16_t RESERVED3;
+}SCI_RegDef_t;                         /*!< Size = 64 (0x40)  */
+
 typedef struct
 {
   __vo uint32_t CTRL;                   /*!< Offset: 0x000 (R/W)  SysTick Control and Status Register */
@@ -82,7 +211,12 @@ typedef struct
 #define PORT8                       ((PORT_RegDef_t*)PORT8_BASEADDR)
 #define PORT9                       ((PORT_RegDef_t*)PORT9_BASEADDR)
 
-#define SYSTICK         ((SysTick_RegDef_t*)SYSTICK_BASEADDR) 
+#define SYSTICK                     ((SysTick_RegDef_t*)SYSTICK_BASEADDR) 
+
+#define SCI0                        ((SCI_RegDef_t*)SCI0_BASEADDR)
+#define SCI1                        ((SCI_RegDef_t*)SCI1_BASEADDR)
+#define SCI2                        ((SCI_RegDef_t*)SCI2_BASEADDR)
+#define SCI9                        ((SCI_RegDef_t*)SCI9_BASEADDR)
 
 /************************ IMPORTANT DEFINITIONS *********************/
 
