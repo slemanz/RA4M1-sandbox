@@ -40,7 +40,7 @@ DRIVERS		+= $(BUILD_DIR)/driver_clock.o
 DRIVERS		+= $(BUILD_DIR)/driver_systick.o
 DRIVERS		+= $(BUILD_DIR)/driver_gpio.o
 
-#CORE		+= $(BUILD_DIR)/simple-timer.o
+CORE		+= $(BUILD_DIR)/simple-timer.o
 
 BSP			+= $(BUILD_DIR)/led.o
 
