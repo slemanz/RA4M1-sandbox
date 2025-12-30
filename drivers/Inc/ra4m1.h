@@ -17,6 +17,9 @@
 #define PWPR_BASEADDR               0x40040D03UL
 #define PFS_BASEADDR                0x40040800UL
 
+// module stop
+#define MSTPCRB_BASEADDR            0x40047000UL
+
 #define PORT0_BASEADDR              0x40040000UL
 #define PORT1_BASEADDR              0x40040020UL
 #define PORT2_BASEADDR              0x40040040UL
@@ -199,6 +202,8 @@ typedef struct
 }SysTick_RegDef_t;
 
 /*********************** PERIPHERAL DEFINITIONS *********************/
+
+#define MSTPCRB                     (*((__vo uint32_t*)MSTPCRB_BASEADDR))
 
 #define PORT0                       ((PORT_RegDef_t*)PORT0_BASEADDR)
 #define PORT1                       ((PORT_RegDef_t*)PORT1_BASEADDR)
