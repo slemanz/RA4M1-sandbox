@@ -94,6 +94,7 @@ typedef struct
 
 #define GPIO_PIN_PSEL_DEFAULT           GPIO_PIN_PSEL_0
 #define GPIO_PIN_P302_SCI2_TXD          GPIO_PIN_PSEL_4
+#define GPIO_PIN_P301_SCI2_RXD          GPIO_PIN_PSEL_4
 
 /********************************************************************************************
  * 								APIs supported by this driver
