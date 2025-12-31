@@ -10,6 +10,7 @@
 #define MMIO16(addr)  (*(volatile uint16_t *)(addr))
 #define MMIO8(addr)  (*(volatile uint8_t *)(addr))
 
+
 /*******************START: Processor Specific Details *************************/
 /*
  * 	ARM-Cortex Mx Processor NVIC ISERx register addresses
