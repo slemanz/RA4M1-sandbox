@@ -10,6 +10,25 @@
 #define MMIO16(addr)  (*(volatile uint16_t *)(addr))
 #define MMIO8(addr)  (*(volatile uint8_t *)(addr))
 
+/*******************START: Processor Specific Details *************************/
+/*
+ * 	ARM-Cortex Mx Processor NVIC ISERx register addresses
+ */
+
+#define NVIC_ISER0 						((__vo uint32_t*)0xE000E100UL)
+#define NVIC_ISER1 						((__vo uint32_t*)0xE000E104UL)
+#define NVIC_ISER2 						((__vo uint32_t*)0xE000E108UL)
+#define NVIC_ISER3 						((__vo uint32_t*)0xE000E10CUL)
+
+/*
+ * 	ARM-Cortex Mx Processor NVIC ISERx register addresses
+ */
+
+#define NVIC_ICER0 						((__vo uint32_t*)0xE000E180UL)
+#define NVIC_ICER1 						((__vo uint32_t*)0xE000E184UL)
+#define NVIC_ICER2 						((__vo uint32_t*)0xE000E188UL)
+#define NVIC_ICER3 						((__vo uint32_t*)0xE000E18CUL)
+
 /************************** BASE ADDRESSES **************************/
 
 
@@ -38,6 +57,8 @@
 #define SCI1_BASEADDR               0x40070020UL
 #define SCI2_BASEADDR               0x40070040UL
 #define SCI9_BASEADDR               0x40070120UL
+
+#define ICU_BASEADDR                0x40006000UL
 
 /************************** REG ADDRESSES ***************************/
 
@@ -193,6 +214,40 @@ typedef struct
     __vo uint16_t RESERVED3;
 }SCI_RegDef_t;                         /*!< Size = 64 (0x40)  */
 
+
+typedef struct                         
+{
+    __vo uint8_t IRQCR[16];             /*!< (@ 0x00000000) IRQ Control Register [0..15]                               */
+    __vo uint32_t RESERVED[60];
+    __vo uint8_t NMICR;                 /*!< (@ 0x00000100) NMI Pin Interrupt Control Register                         */
+    __vo uint8_t  RESERVED1;
+    __vo uint16_t RESERVED2;
+    __vo uint32_t RESERVED3[7];
+    __vo uint16_t NMIER;                /*!< (@ 0x00000120) Non-Maskable Interrupt Enable Register                     */
+    __vo uint16_t RESERVED4;
+    __vo uint32_t RESERVED5[3];
+    __vo uint16_t NMICLR;               /*!< (@ 0x00000130) Non-Maskable Interrupt Status Clear Register               */
+    __vo uint16_t RESERVED6;
+    __vo uint32_t RESERVED7[3];
+    __vo uint16_t NMISR;                /*!< (@ 0x00000140) Non-Maskable Interrupt Status Register                     */
+    __vo uint16_t RESERVED8;
+    __vo uint32_t RESERVED9[23];
+    __vo uint32_t WUPEN;                /*!< (@ 0x000001A0) Wake Up Interrupt Enable Register                          */
+    __vo uint32_t WUPEN1;               /*!< (@ 0x000001A4) Wake Up interrupt enable register 1                        */
+    __vo uint32_t WUPEN2;               /*!< (@ 0x000001A8) Wake Up Interrupt Enable Register 2                        */
+    __vo uint32_t RESERVED10[5];
+    __vo uint8_t IELEN;                 /*!< (@ 0x000001C0) ICU event Enable Register                                  */
+    __vo uint8_t  RESERVED11;
+    __vo uint16_t RESERVED12;
+    __vo uint32_t RESERVED13[15];
+    __vo uint16_t SELSR0;               /*!< (@ 0x00000200) Snooze Event Link Setting Register                         */
+    __vo uint16_t RESERVED14;
+    __vo uint32_t RESERVED15[31];
+    __vo uint32_t DELSR[8];             /*!< (@ 0x00000280) DMAC Event Link Setting Register                           */
+    __vo uint32_t RESERVED16[24];
+    __vo uint32_t IELSR[96];            /*!< (@ 0x00000300) ICU Event Link Setting Register [0..95]                    */
+}ICU_RegDef_t; 
+
 typedef struct
 {
   __vo uint32_t CTRL;                   /*!< Offset: 0x000 (R/W)  SysTick Control and Status Register */
@@ -222,6 +277,8 @@ typedef struct
 #define SCI1                        ((SCI_RegDef_t*)SCI1_BASEADDR)
 #define SCI2                        ((SCI_RegDef_t*)SCI2_BASEADDR)
 #define SCI9                        ((SCI_RegDef_t*)SCI9_BASEADDR)
+
+#define ICU                         ((ICU_RegDef_t*)ICU_BASEADDR)
 
 /************************ IMPORTANT DEFINITIONS *********************/
 
