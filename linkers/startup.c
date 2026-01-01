@@ -36,6 +36,19 @@ void DebugMon_Handler               (void) __attribute__ ((weak, alias("Default_
 void PendSV_Handler                 (void) __attribute__ ((weak, alias("Default_Handler")));
 void SysTick_Handler                (void) __attribute__ ((weak, alias("Default_Handler")));
 
+
+void EVENT0_IRQHandler              (void) __attribute__ ((weak, alias("Default_Handler")));
+void EVENT1_IRQHandler              (void) __attribute__ ((weak, alias("Default_Handler")));
+void EVENT2_IRQHandler              (void) __attribute__ ((weak, alias("Default_Handler")));
+void EVENT3_IRQHandler              (void) __attribute__ ((weak, alias("Default_Handler")));
+void EVENT4_IRQHandler              (void) __attribute__ ((weak, alias("Default_Handler")));
+void EVENT5_IRQHandler              (void) __attribute__ ((weak, alias("Default_Handler")));
+void EVENT6_IRQHandler              (void) __attribute__ ((weak, alias("Default_Handler")));
+void EVENT7_IRQHandler              (void) __attribute__ ((weak, alias("Default_Handler")));
+void EVENT8_IRQHandler              (void) __attribute__ ((weak, alias("Default_Handler")));
+
+
+
 __attribute__((section(".isr_vector")))
 uint32_t vectors[256]  = {
     STACK_START,                    // 0
@@ -54,7 +67,16 @@ uint32_t vectors[256]  = {
     0,
     (uint32_t)PendSV_Handler,
     (uint32_t)SysTick_Handler,
-    0,                              // 17
+    (uint32_t)EVENT0_IRQHandler,    // 16
+    (uint32_t)EVENT1_IRQHandler,    // 17
+    (uint32_t)EVENT2_IRQHandler,    // 18
+    (uint32_t)EVENT3_IRQHandler,    // 19
+    (uint32_t)EVENT4_IRQHandler,    // 20
+    (uint32_t)EVENT5_IRQHandler,    // 21
+    (uint32_t)EVENT6_IRQHandler,    // 22
+    (uint32_t)EVENT7_IRQHandler,    // 23
+    (uint32_t)EVENT8_IRQHandler,    // 24
+    0,                              // 25
     0,                              // 18
     0,                              // 19
     0,                              // 20
@@ -95,7 +117,6 @@ uint32_t vectors[256]  = {
     0,                              // 55
     0,                              // 56
     0,                              // 57
-    0,                              // 58
 };
 
 __attribute__((section(".flash_config")))
