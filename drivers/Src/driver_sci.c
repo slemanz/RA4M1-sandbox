@@ -20,14 +20,20 @@ void sci2_init(void)
 
     // transmit enable
     SCI2->SCR |= (1 << 5);
+
+    // receive enable
+    SCI2->SCR |= (1 << 4);
+
+    // interrupt rxi enable
+    SCI2->SCR |= (1 << 6);
 }
 
 void sci2_write_byte(uint8_t ch)
 {
     while(!(SCI2->SSR & (1 << 7))); // wait transmit
     SCI2->TDR = ch;
-    SCI2->SSR &= ~(1 << 7); // clear flag
-    while(!(SCI2->SSR & (1 << 7))); // wait transmit
+    //SCI2->SSR &= ~(1 << 7); // clear flag
+    while(!(SCI2->SSR & (1 << 2))); // wait transmit
 
     //while(!(SCI2->SSR & (1 << 2))); // wait transmit complete
 }
