@@ -26,6 +26,7 @@ OBJCOPY=arm-none-eabi-objcopy
 INCLUDES+= -I $(ROOT_DIR)/app/Inc/
 INCLUDES+= -I $(ROOT_DIR)/drivers/Inc/
 INCLUDES+= -I $(ROOT_DIR)/common/Inc/
+INCLUDES+= -I $(ROOT_DIR)/interface/Inc/
 
 ############################################
 # 				SOURCE FILES
@@ -40,10 +41,16 @@ DRIVERS		+= $(BUILD_DIR)/driver_clock.o
 DRIVERS		+= $(BUILD_DIR)/driver_systick.o
 DRIVERS		+= $(BUILD_DIR)/driver_gpio.o
 DRIVERS		+= $(BUILD_DIR)/driver_sci.o
+DRIVERS		+= $(BUILD_DIR)/driver_interrupt.o
+
+INTERFACE	+= $(BUILD_DIR)/interface_comm.o
+INTERFACE	+= $(BUILD_DIR)/protocol_sci.o
 
 CORE		+= $(BUILD_DIR)/simple-timer.o
 
 BSP			+= $(BUILD_DIR)/led.o
+
+SHARED		+= $(BUILD_DIR)/ring-buffer.o
 
 PREREQ = $(BUILD_DIR)/
 
@@ -58,17 +65,23 @@ $(BUILD_DIR)/%.o: $(ROOT_DIR)/app/Src/%.c
 $(BUILD_DIR)/%.o: $(ROOT_DIR)/drivers/Src/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/drivers/Src/$(*).c
 
+$(BUILD_DIR)/%.o: $(ROOT_DIR)/interface/Src/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/interface/Src/$(*).c
+
 $(BUILD_DIR)/%.o: $(ROOT_DIR)/common/Src/core/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/common/Src/core/$(*).c
 
 $(BUILD_DIR)/%.o: $(ROOT_DIR)/common/Src/bsp/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/common/Src/bsp/$(*).c
 
+$(BUILD_DIR)/%.o: $(ROOT_DIR)/common/Src/shared/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/common/Src/shared/$(*).c
+
 $(BUILD_DIR)/%.o: $(ROOT_DIR)/linkers/*.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/linkers/$(*).c
 
 # TARGET ELF
-$(BUILD_DIR)/$(TARGET).elf: $(OBJS) $(DRIVERS) $(CORE) $(BSP)
+$(BUILD_DIR)/$(TARGET).elf: $(OBJS) $(DRIVERS) $(CORE) $(BSP) $(SHARED) $(INTERFACE)
 	$(CC) $(LDFLAGS) -o $@ $^
 	$(OBJCOPY) -O binary $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).bin
 	arm-none-eabi-size $(BUILD_DIR)/$(TARGET).elf
