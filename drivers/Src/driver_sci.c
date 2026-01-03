@@ -37,3 +37,12 @@ void sci2_write_byte(uint8_t ch)
 
     //while(!(SCI2->SSR & (1 << 2))); // wait transmit complete
 }
+
+void sci2_write(uint8_t* pBuffer, uint32_t Len)
+{
+    for(uint32_t i = 0; i < Len; i++)
+    {
+        sci2_write_byte(pBuffer[i]);
+    }
+
+}
