@@ -1,0 +1,25 @@
+<mxfile host="65bd71144e" scale="3" border="50">
+    <diagram id="ygqPfqIMHYHkgrcEr4pF" name="Page-1">
+        <mxGraphModel dx="370" dy="320" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="&lt;b&gt;APP&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#f8cecc;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="280" y="200" width="200" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="&lt;b&gt;COMMON&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#000000;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="280" y="240" width="200" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="&lt;b&gt;INTERFACE&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#000000;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="280" y="280" width="200" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="&lt;b&gt;DRIVERS&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#dae8fc;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="280" y="320" width="200" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="&lt;b&gt;HARDWARE&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#f5f5f5;strokeColor=#000000;fontColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="280" y="360" width="200" height="40" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
