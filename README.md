@@ -62,8 +62,8 @@ make load
 
 | Arduino Pin | MCU Pin | Function |
 | --- | --- | --- |
-| Pin 13 | P111 | GPT3_A (Blinky LED) |
-| Pin 8 | P304 | GPT7_A |
+| Pin 13 | P111 | GPT3_A |
+| Pin 8 | P304 | GPT7_A (Blinky LED) |
 | Pin 1 | P302 | SCI2_TXD (UART) |
 | Pin 0 | P301 | SCI2_RXD (UART) |
 
@@ -71,6 +71,7 @@ make load
 
 ## Release History
 
+* **v1.0:** Initial release featuring a basic "Blinky" and an SCI echo interface.
 
 ## License
 
