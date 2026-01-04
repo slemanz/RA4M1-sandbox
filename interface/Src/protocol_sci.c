@@ -19,8 +19,15 @@ void sci2_protocol_init(void)
 {
     ring_buffer_setup(&rb_sci2, data_buffer_sci2, SERIAL_BUFFER_SIZE);
 
-    sci2_init();
-    
+    SCI_Config_t SCI2_Config;
+    SCI2_Config.pSCIx = SCI2;
+    SCI2_Config.SCI_Baud = SCI_STD_BAUD_115200;
+    SCI2_Config.SCI_NoOfStopBits = SCI_STOPBITS_1;
+    SCI2_Config.SCI_ParityControl = SCI_PARITY_DISABLE;
+    SCI2_Config.SCI_Mode = SCI_MODE_TXRX;
+    SCI_Init(&SCI2_Config);
+    SCI_InterruptConfig(SCI2, SCI_INTERRUPT_RIE, ENABLE);
+
     interrupt_Config(IRQ_NO_0, ENABLE);
     icu_config(ICU_EVENT_NO_0, ICU_EVENT_SCI2_RXI);
 }
