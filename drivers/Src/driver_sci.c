@@ -32,6 +32,15 @@ void SCI_BaudConfig(SCI_RegDef_t *pSCIx, uint32_t Baud)
     for(uint32_t i = 0; i < 100; i++);
 }
 
+uint8_t SCI_GetFlagStatus(SCI_RegDef_t *pSCIx, uint8_t flagName)
+{
+    if(pSCIx->SSR & flagName)
+    {
+        return FLAG_SET;
+    }
+    return FLAG_RESET;
+}
+
 void SCI_Init(SCI_Config_t *pSCIConfig)
 {
     SCI_StopControl(pSCIConfig->pSCIx, DISABLE);
@@ -74,22 +83,24 @@ void SCI_InterruptConfig(SCI_RegDef_t *pSCIx, uint8_t regs, uint8_t EnorDi)
     }
 }
 
-
-void sci2_write_byte(uint8_t ch)
+void SCI_WriteByte(SCI_RegDef_t *pSCIx, uint8_t *pTxBuffer)
 {
-    while(!(SCI2->SSR & (1 << 7))); // wait transmit
-    SCI2->TDR = ch;
-    //SCI2->SSR &= ~(1 << 7); // clear flag
-    while(!(SCI2->SSR & (1 << 2))); // wait transmit
-
-    //while(!(SCI2->SSR & (1 << 2))); // wait transmit complete
+    pSCIx->TDR = *pTxBuffer;
 }
 
-void sci2_write(uint8_t* pBuffer, uint32_t Len)
+void SCI_Write(SCI_RegDef_t *pSCIx, uint8_t *pTxBuffer, uint32_t Len)
 {
     for(uint32_t i = 0; i < Len; i++)
     {
-        sci2_write_byte(pBuffer[i]);
+        while(!SCI_GetFlagStatus(pSCIx, SCI_FLAG_TDRE)); // wait transmit
+        SCI_WriteByte(pSCIx, pTxBuffer);
+        pTxBuffer++;
     }
+    while(!SCI_GetFlagStatus(pSCIx, SCI_FLAG_TEND)); // wait complete
 
+}
+
+void SCI_ReadByte(SCI_RegDef_t *pSCIx, uint8_t *pRxBuffer)
+{
+    *pRxBuffer = pSCIx->RDR;
 }
