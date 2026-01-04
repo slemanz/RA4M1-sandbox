@@ -46,6 +46,6 @@ int main(void)
 // printf retarget
 extern int __io_putchar(int ch)
 {
-    sci2_write_byte((uint8_t)ch);
+    SCI_Write(SCI2, (uint8_t*)(&ch), 1);
     return ch;
 }
