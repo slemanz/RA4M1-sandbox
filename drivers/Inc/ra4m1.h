@@ -286,9 +286,18 @@ typedef struct
 #define ENABLE                      1
 #define DISABLE                     0
 
+#define FLAG_SET                    ENABLE
+#define FLAG_RESET                  DISABLE
+
 #define INTERRUPT_ENABLE()          do{__asm volatile ("MOV R0, #0x0"); __asm volatile("MSR PRIMASK, R0");}while(0)
 #define INTERRUPT_DISABLE()         do{__asm volatile ("MOV R0, #0x1"); __asm volatile("MSR PRIMASK, R0");}while(0)
 
 #define PRCR_KEY_CODE               0xA500
+
+/************************ STOP CONTROL MACROS ***********************/
+
+#define SCI2_STOP_EN()              (MSTPCRB |= (1 << 29))
+
+#define SCI2_STOP_DI()              (MSTPCRB &= ~(1 << 29))
 
 #endif /* INC_RA4M1_H_ */

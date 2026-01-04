@@ -29,6 +29,9 @@ typedef struct
 #define SCI_SCR_TE_POS              5
 #define SCI_SCR_RIE_POS             6
 
+#define SCI_SSR_TEND_POS            2
+#define SCI_SSR_TDRE_POS            7
+
 /******************************************************************************************
  *              BIT MASK DEFINITIONS OF SCI PERIPHERAL
  ******************************************************************************************/
@@ -40,6 +43,9 @@ typedef struct
 #define SCI_SCR_RE_MSK              (1U << SCI_SCR_RE_POS)
 #define SCI_SCR_TE_MSK              (1U << SCI_SCR_TE_POS)
 #define SCI_SCR_RIE_MSK             (1U << SCI_SCR_RIE_POS)
+
+#define SCI_SSR_TEND_MSK            (1U << SCI_SSR_TEND_POS)
+#define SCI_SSR_TDRE_MSK            (1U << SCI_SSR_TDRE_POS)
 
  /******************************************************************************************
  *                          POSSIBLE CONFIGURATIONS
@@ -110,7 +116,8 @@ typedef struct
  *                          FLAGS
  ******************************************************************************************/
 
-#define SCI_FLAG_TXE            (1 << SCI_SR_TXE)
+#define SCI_FLAG_TEND                   (SCI_SSR_TEND_MSK)
+#define SCI_FLAG_TDRE                   (SCI_SSR_TDRE_MSK)
 
  /********************************************************************************************
  * 								APIs supported by this driver
@@ -127,6 +134,10 @@ void SCI_Init(SCI_Config_t *pSCIConfig);
  * Data write and read
  */
 
+void SCI_WriteByte(SCI_RegDef_t *pSCIx, uint8_t *pTxBuffer);
+void SCI_Write(SCI_RegDef_t *pSCIx, uint8_t *pTxBuffer, uint32_t Len);
+void SCI_ReadByte(SCI_RegDef_t *pSCIx, uint8_t *pRxBuffer);
+
 /*
  * Other Peripheral Control APIs
  */
@@ -134,8 +145,6 @@ void SCI_Init(SCI_Config_t *pSCIConfig);
 void SCI_StopControl(SCI_RegDef_t *pSCIx, uint8_t EnorDi);
 void SCI_BaudConfig(SCI_RegDef_t *pSCIx, uint32_t Baud);
 void SCI_InterruptConfig(SCI_RegDef_t *pSCIx, uint8_t register, uint8_t EnorDi);
-
-void sci2_write_byte(uint8_t ch);
-void sci2_write(uint8_t* pBuffer, uint32_t Len);
+uint8_t SCI_GetFlagStatus(SCI_RegDef_t *pSCIx, uint8_t flagName);
 
 #endif /* INC_DRIVER_SCI_H_ */
