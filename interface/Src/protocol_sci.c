@@ -35,7 +35,7 @@ void sci2_protocol_init(void)
 
 void sci2_protocol_send(uint8_t *data, uint32_t Len)
 {
-    sci2_write(data, Len);
+    SCI_Write(SCI2, data, Len);
 }
 
 uint8_t sci2_protocol_receive(uint8_t *buffer, uint32_t Len)
@@ -60,7 +60,8 @@ uint8_t sci2_protocol_data_available(void)
 
 void EVENT0_IRQHandler(void)
 {
-    uint8_t received_data = SCI2->RDR;
+    uint8_t received_data;
+    SCI_ReadByte(SCI2, &received_data);
     ring_buffer_write(&rb_sci2, received_data);
     icu_clear_irq(ICU_EVENT_NO_0);
 }
