@@ -17,6 +17,29 @@ typedef struct
 	// uint8_t SCI_HWFlowControl;
 }SCI_Config_t;
 
+/******************************************************************************************
+ *              BIT POSITION DEFINITIONS OF SCI PERIPHERAL
+ ******************************************************************************************/
+
+#define SCI_SMR_STOP_POS            3
+#define SCI_SMR_PM_POS              4
+#define SCI_SMR_PE_POS              5
+
+#define SCI_SCR_RE_POS              4
+#define SCI_SCR_TE_POS              5
+#define SCI_SCR_RIE_POS             6
+
+/******************************************************************************************
+ *              BIT MASK DEFINITIONS OF SCI PERIPHERAL
+ ******************************************************************************************/
+
+#define SCI_SMR_STOP_MSK            (1U << SCI_SMR_STOP_POS)
+#define SCI_SMR_PM_MSK              (1U << SCI_SMR_PM_POS)
+#define SCI_SMR_PE_MSK              (1U << SCI_SMR_PE_POS)
+
+#define SCI_SCR_RE_MSK              (1U << SCI_SCR_RE_POS)
+#define SCI_SCR_TE_MSK              (1U << SCI_SCR_TE_POS)
+#define SCI_SCR_RIE_MSK             (1U << SCI_SCR_RIE_POS)
 
  /******************************************************************************************
  *                          POSSIBLE CONFIGURATIONS
@@ -76,19 +99,18 @@ typedef struct
 #define SCI_HW_FLOW_CTRL_RTS            2
 #define SCI_HW_FLOW_CTRL_CTS_RTS        3
 
-/*
- * SCI flags
- */
+
+ /******************************************************************************************
+ *                          INTERRUPTS
+ ******************************************************************************************/
+
+ #define SCI_INTERRUPT_RIE              (SCI_SCR_RIE_MSK)
+
+ /******************************************************************************************
+ *                          FLAGS
+ ******************************************************************************************/
 
 #define SCI_FLAG_TXE            (1 << SCI_SR_TXE)
-#define SCI_FLAG_RXNE           (1 << SCI_SR_RXNE)
-#define SCI_FLAG_TC             (1 << SCI_SR_TC)
-
-/**
- * @SCI_Interrupt
- */
-
- #define SCI_INTERRUPT_RXI      (1 << 0)
 
  /********************************************************************************************
  * 								APIs supported by this driver
@@ -111,10 +133,8 @@ void SCI_Init(SCI_Config_t *pSCIConfig);
 
 void SCI_StopControl(SCI_RegDef_t *pSCIx, uint8_t EnorDi);
 void SCI_BaudConfig(SCI_RegDef_t *pSCIx, uint32_t Baud);
+void SCI_InterruptConfig(SCI_RegDef_t *pSCIx, uint8_t register, uint8_t EnorDi);
 
-
-
-void sci2_init(void);
 void sci2_write_byte(uint8_t ch);
 void sci2_write(uint8_t* pBuffer, uint32_t Len);
 
