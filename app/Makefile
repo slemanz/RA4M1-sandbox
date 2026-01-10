@@ -45,8 +45,10 @@ DRIVERS		+= $(BUILD_DIR)/driver_interrupt.o
 
 INTERFACE	+= $(BUILD_DIR)/interface_comm.o
 INTERFACE	+= $(BUILD_DIR)/protocol_sci.o
+INTERFACE	+= $(BUILD_DIR)/interface_timebase.o
 
 CORE		+= $(BUILD_DIR)/simple-timer.o
+CORE		+= $(BUILD_DIR)/cli.o
 
 BSP			+= $(BUILD_DIR)/led.o
 
