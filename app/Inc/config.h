@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 
-void config_drivers(void);
+void config_app(void);
+void config_interface(void);
+void config_core(void);
 
 #endif /* INC_CONFIG_H_ */
