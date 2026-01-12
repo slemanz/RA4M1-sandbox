@@ -8,6 +8,7 @@
 int main(void)
 {
     config_app();
+    led_setup();
 
     simple_timer_t timer_blinky;
     simple_timer_t timer_ch;
@@ -15,10 +16,13 @@ int main(void)
     simple_timer_setup(&timer_ch, 1000, true);
 
     printf("Init the board!\r\n");
-
+    
     while(1)
     {
-        if(simple_timer_has_elapsed(&timer_blinky)) led_toggle();
+        if(simple_timer_has_elapsed(&timer_blinky))
+        {
+            led_toggle();
+        }
 
         cli_update();
     }
