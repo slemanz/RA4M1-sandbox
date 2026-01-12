@@ -1,7 +1,14 @@
 #include "bsp/led.h"
-#include "driver_gpio.h"
+#include "interface_io.h"
+
+static IO_Interface_t *led_pin;
+
+void led_setup(void)
+{
+    led_pin = IO_Interface_get(IO1);
+}
 
 void led_toggle(void)
 {
-    GPIO_ToggleOutputPin(PORT3, GPIO_PIN_NO_4);
+    if(led_pin != NULL) led_pin->toggle();
 }

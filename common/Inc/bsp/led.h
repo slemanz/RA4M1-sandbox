@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 
+void led_setup(void);
 void led_toggle(void);
 
 #endif /* INC_LED_H_ */
