@@ -2,7 +2,7 @@
 #define INC_CLI_H_
 
 #include <stdint.h>
-#include "interface_comm.h"
+#include "interface/interface.h"
 
 // structure to hold command info
 typedef struct
