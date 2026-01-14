@@ -1,11 +1,10 @@
 #include "bsp/led.h"
-#include "interface_io.h"
 
 static IO_Interface_t *led_pin;
 
-void led_setup(void)
+void led_setup(IO_Interface_t *io_pin)
 {
-    led_pin = IO_Interface_get(IO1);
+    led_pin = io_pin;
 }
 
 void led_toggle(void)

@@ -1,5 +1,5 @@
 #include "core/simple-timer.h"
-#include "interface_timebase.h"
+#include "interface/interface.h"
 
 timebase_interface_t *ticks = NULL;
 
