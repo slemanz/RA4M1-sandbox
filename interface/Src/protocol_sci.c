@@ -1,4 +1,4 @@
-#include "interface_comm.h"
+#include "interface/interface.h"
 #include "interface_instances.h"
 
 #include "shared/ring-buffer.h"
