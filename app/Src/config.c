@@ -4,20 +4,20 @@
 *                       DRIVERS                             *
 *************************************************************/
 #include "driver_clock.h"
-#include "driver_gpio.h"
 
 
 /************************************************************
 *                      INTERFACE                            *
 *************************************************************/
 
-#include "interface_comm.h"
+#include "interface/interface.h"
+#include "interface_defines.h"
 
 Comm_Interface_t *serial = NULL;
 
 void config_interface(void)
 {
-    serial = Comm_ProtocolGet(PROTOCOL_SCI2);
+    serial = Comm_ProtocolGet(INTERFACE_PROTOCOL_SCI2);
 }
 
 // printf retarget
@@ -39,12 +39,14 @@ const command_t commands_table[] = {
 
 void config_core(void)
 {
-    cli_setup(Comm_ProtocolGet(PROTOCOL_SCI2), (command_t*)commands_table, 1);
+    cli_setup(Comm_ProtocolGet(INTERFACE_PROTOCOL_SCI2), (command_t*)commands_table, 1);
 }
 
 /************************************************************
 *                         APP                               *
 *************************************************************/
+
+#include "bsp/led.h"
 
 void config_app(void)
 {
@@ -52,4 +54,5 @@ void config_app(void)
 
     config_interface();
     config_core();
+    led_setup(IO_Interface_get(INTERFACE_IO_1));
 }

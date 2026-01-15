@@ -47,7 +47,6 @@ INTERFACE	+= $(BUILD_DIR)/interface_comm.o
 INTERFACE	+= $(BUILD_DIR)/protocol_sci.o
 INTERFACE	+= $(BUILD_DIR)/interface_timebase.o
 INTERFACE	+= $(BUILD_DIR)/interface_io.o
-INTERFACE	+= $(BUILD_DIR)/wrapper_io.o
 
 CORE		+= $(BUILD_DIR)/simple-timer.o
 CORE		+= $(BUILD_DIR)/cli.o

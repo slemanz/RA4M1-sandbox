@@ -8,7 +8,6 @@
 int main(void)
 {
     config_app();
-    led_setup();
 
     simple_timer_t timer_blinky;
     simple_timer_t timer_ch;
