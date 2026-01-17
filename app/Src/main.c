@@ -1,9 +1,9 @@
-#include <stdio.h>
 #include "config.h"
 
 #include "bsp/led.h"
 #include "core/simple-timer.h"
 #include "core/cli.h"
+#include "core/uprint.h"
 
 int main(void)
 {
@@ -14,7 +14,7 @@ int main(void)
     simple_timer_setup(&timer_blinky, 500, true);
     simple_timer_setup(&timer_ch, 1000, true);
 
-    printf("Init the board!\r\n");
+    uprint("Init the board!\r\n");
     
     while(1)
     {

@@ -30,6 +30,7 @@ extern int __io_putchar(int ch)
 /************************************************************
 *                         CORE                              *
 *************************************************************/
+#include "core/uprint.h"
 #include "core/cli.h"
 #include "core/simple-timer.h"
 
@@ -39,6 +40,7 @@ const command_t commands_table[] = {
 
 void config_core(void)
 {
+    uprint_setup(Comm_ProtocolGet(INTERFACE_PROTOCOL_SCI2));
     cli_setup(Comm_ProtocolGet(INTERFACE_PROTOCOL_SCI2), (command_t*)commands_table, 1);
 }
 
