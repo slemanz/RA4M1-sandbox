@@ -1,6 +1,6 @@
 #include "core/cli.h"
+#include "core/uprint.h"
 
-#include <stdio.h>
 #include <string.h>
 #include <stddef.h>
 
@@ -69,10 +69,10 @@ void cli_help(void)
 {
     if(cli_table == NULL) return;
 
-    printf("===================================\r\n");
+    uprint("===================================\r\n");
     for (int i = 0; i < cli_table_len; i++)
     {
-    	printf("%s: %s\r\n", cli_table[i].name, cli_table[i].help);
+    	uprint("%s: %s\r\n", cli_table[i].name, cli_table[i].help);
     }
-    printf("===================================\r\n");
+    uprint("===================================\r\n");
 }
