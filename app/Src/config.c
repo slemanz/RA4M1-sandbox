@@ -56,5 +56,5 @@ void config_app(void)
 
     config_interface();
     config_core();
-    led_setup(IO_Interface_get(INTERFACE_IO_1));
+    led_setup(0);
 }

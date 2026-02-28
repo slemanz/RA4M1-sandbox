@@ -4,11 +4,12 @@ TARGET=flash
 MACH=-mcpu=cortex-m4
 FLOAT=-mfloat-abi=soft
 
-BUILD_DIR = Build
-ROOT_DIR = ..
+DIR_BUILD 	= Build
+DIR_ROOT 	= ..
+DIR_DEVICE 	= $(DIR_ROOT)/drivers/Device
 
-LINKER= -T $(ROOT_DIR)/linkers/R7FA4M1AB.ld
-MAP_FILE= -Wl,-Map=$(BUILD_DIR)/$(TARGET).map
+LINKER = -T $(DIR_DEVICE)/linkers/R7FA4M1AB.ld
+MAP_FILE = -Wl,-Map=$(DIR_BUILD)/$(TARGET).map
 
 CFLAGS= -c $(MACH) -mthumb $(FLOAT) -std=gnu99 -Wall -O0 -g \
 		--specs=nano.specs -ffunction-sections -fdata-sections
@@ -23,75 +24,78 @@ OBJCOPY=arm-none-eabi-objcopy
 #				 INCLUDES
 ###########################################
 
-INCLUDES+= -I $(ROOT_DIR)/app/Inc/
-INCLUDES+= -I $(ROOT_DIR)/drivers/Inc/
-INCLUDES+= -I $(ROOT_DIR)/common/Inc/
-INCLUDES+= -I $(ROOT_DIR)/interface/Inc/
+INCLUDES+= -I $(DIR_ROOT)/app/Inc
+INCLUDES+= -I $(DIR_ROOT)/drivers/Inc
+INCLUDES+= -I $(DIR_ROOT)/common/Inc
+INCLUDES+= -I $(DIR_ROOT)/interface/Inc
 
 ############################################
 # 				SOURCE FILES
 ############################################
 
-OBJS		+= $(BUILD_DIR)/main.o
-OBJS		+= $(BUILD_DIR)/config.o
-OBJS		+= $(BUILD_DIR)/syscalls.o
-OBJS		+= $(BUILD_DIR)/startup.o
+OBJS		+= $(DIR_BUILD)/main.o
+OBJS		+= $(DIR_BUILD)/config.o
+OBJS		+= $(DIR_BUILD)/syscalls.o
+OBJS		+= $(DIR_BUILD)/startup.o
 
-DRIVERS		+= $(BUILD_DIR)/driver_clock.o
-DRIVERS		+= $(BUILD_DIR)/driver_systick.o
-DRIVERS		+= $(BUILD_DIR)/driver_gpio.o
-DRIVERS		+= $(BUILD_DIR)/driver_sci.o
-DRIVERS		+= $(BUILD_DIR)/driver_interrupt.o
+DRIVERS		+= $(DIR_BUILD)/driver_clock.o
+DRIVERS		+= $(DIR_BUILD)/driver_systick.o
+DRIVERS		+= $(DIR_BUILD)/driver_gpio.o
+DRIVERS		+= $(DIR_BUILD)/driver_sci.o
+DRIVERS		+= $(DIR_BUILD)/driver_interrupt.o
 
-INTERFACE	+= $(BUILD_DIR)/interface_comm.o
-INTERFACE	+= $(BUILD_DIR)/protocol_sci.o
-INTERFACE	+= $(BUILD_DIR)/interface_timebase.o
-INTERFACE	+= $(BUILD_DIR)/interface_io.o
+INTERFACE	+= $(DIR_BUILD)/interface_comm.o
+INTERFACE	+= $(DIR_BUILD)/protocol_sci.o
+INTERFACE	+= $(DIR_BUILD)/interface_timebase.o
+INTERFACE	+= $(DIR_BUILD)/interface_io.o
 
-CORE		+= $(BUILD_DIR)/simple-timer.o
-CORE		+= $(BUILD_DIR)/cli.o
-CORE		+= $(BUILD_DIR)/uprint.o
+CORE		+= $(DIR_BUILD)/simple-timer.o
+CORE		+= $(DIR_BUILD)/cli.o
+CORE		+= $(DIR_BUILD)/uprint.o
 
-BSP			+= $(BUILD_DIR)/led.o
+BSP			+= $(DIR_BUILD)/led.o
 
-SHARED		+= $(BUILD_DIR)/ring-buffer.o
+SHARED		+= $(DIR_BUILD)/ring-buffer.o
 
-PREREQ = $(BUILD_DIR)/
+PREREQ = $(DIR_BUILD)
 
-all: $(PREREQ) $(BUILD_DIR)/$(TARGET).elf
+all: $(PREREQ) $(DIR_BUILD)/$(TARGET).elf
 
 $(PREREQ):
 	mkdir $(PREREQ)
 
-$(BUILD_DIR)/%.o: $(ROOT_DIR)/app/Src/%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/app/Src/$(*).c
+$(DIR_BUILD)/%.o: Src/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(DIR_BUILD)/$(*).o Src/$(*).c
 
-$(BUILD_DIR)/%.o: $(ROOT_DIR)/drivers/Src/%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/drivers/Src/$(*).c
+$(DIR_BUILD)/%.o: $(DIR_ROOT)/drivers/Src/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(DIR_BUILD)/$(*).o $(DIR_ROOT)/drivers/Src/$(*).c
 
-$(BUILD_DIR)/%.o: $(ROOT_DIR)/interface/Src/%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/interface/Src/$(*).c
+$(DIR_BUILD)/%.o: $(DIR_ROOT)/interface/Src/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(DIR_BUILD)/$(*).o $(DIR_ROOT)/interface/Src/$(*).c
 
-$(BUILD_DIR)/%.o: $(ROOT_DIR)/common/Src/core/%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/common/Src/core/$(*).c
+$(DIR_BUILD)/%.o: $(DIR_ROOT)/common/Src/core/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(DIR_BUILD)/$(*).o $(DIR_ROOT)/common/Src/core/$(*).c
 
-$(BUILD_DIR)/%.o: $(ROOT_DIR)/common/Src/bsp/%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/common/Src/bsp/$(*).c
+$(DIR_BUILD)/%.o: $(DIR_ROOT)/common/Src/bsp/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(DIR_BUILD)/$(*).o $(DIR_ROOT)/common/Src/bsp/$(*).c
 
-$(BUILD_DIR)/%.o: $(ROOT_DIR)/common/Src/shared/%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/common/Src/shared/$(*).c
+$(DIR_BUILD)/%.o: $(DIR_ROOT)/common/Src/shared/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(DIR_BUILD)/$(*).o $(DIR_ROOT)/common/Src/shared/$(*).c
 
-$(BUILD_DIR)/%.o: $(ROOT_DIR)/linkers/*.c
-	$(CC) $(CFLAGS) $(INCLUDES) -o $(BUILD_DIR)/$(*).o $(ROOT_DIR)/linkers/$(*).c
+$(DIR_BUILD)/%.o: $(DIR_DEVICE)/startup/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(DIR_BUILD)/$(*).o $(DIR_DEVICE)/startup/$(*).c
+
+$(DIR_BUILD)/%.o: $(DIR_DEVICE)/system/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(DIR_BUILD)/$(*).o $(DIR_DEVICE)/system/$(*).c
 
 # TARGET ELF
-$(BUILD_DIR)/$(TARGET).elf: $(OBJS) $(DRIVERS) $(CORE) $(BSP) $(SHARED) $(INTERFACE)
+$(DIR_BUILD)/$(TARGET).elf: $(OBJS) $(DRIVERS) $(CORE) $(BSP) $(SHARED) $(INTERFACE)
 	$(CC) $(LDFLAGS) -o $@ $^
-	$(OBJCOPY) -O binary $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).bin
-	arm-none-eabi-size $(BUILD_DIR)/$(TARGET).elf
+	$(OBJCOPY) -O binary $(DIR_BUILD)/$(TARGET).elf $(DIR_BUILD)/$(TARGET).bin
+	arm-none-eabi-size $(DIR_BUILD)/$(TARGET).elf
 
 load:
 	jlink flash.jlink
 
 clean:
-	rm -rf $(BUILD_DIR)/*.map $(BUILD_DIR)/*.o
+	rm -rf $(DIR_BUILD)/*.map $(DIR_BUILD)/*.o
