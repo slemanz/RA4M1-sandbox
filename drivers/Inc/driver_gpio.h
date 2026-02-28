@@ -14,6 +14,7 @@ typedef struct
 	uint8_t GPIO_PeriphSel;	    /*!< possible modes from @GPIO_PIN_PSEL >*/
 }GPIO_PinConfig_t;
 
+#define GPIO_OK                 0
 
 #define GPIO_SET                ENABLE
 #define GPIO_RESET              DISABLE
@@ -105,7 +106,7 @@ void GPIO_PfsweControl(uint8_t EnorDi);
 /*
  * Init and De-init
  */
-void GPIO_Init(GPIO_PinConfig_t *pGPIOConfig);
+uint8_t GPIO_Init(GPIO_PinConfig_t *pGPIOConfig);
 void GPIO_Init_table(const GPIO_PinConfig_t *pGPIOConfig, uint32_t Len);
 
 void GPIO_DeInit(void); // not implemented
@@ -114,8 +115,10 @@ void GPIO_DeInit(void); // not implemented
  * Data read and write
  */
 
-//uint8_t GPIO_ReadFromInputPin(PORT_RegDef_t *pGPIOx, uint8_t PinNumber);
 void    GPIO_WriteToOutputPin(PORT_RegDef_t *pPORTx, uint8_t PinNumber, uint8_t value);
+uint8_t    GPIO_ReadFromInputPin(PORT_RegDef_t *pPORTx, uint8_t PinNumber);
 void    GPIO_ToggleOutputPin(PORT_RegDef_t *pPORTx, uint8_t PinNumber);
+
+void    GPIO_SetPinMode(PORT_RegDef_t *pGPIOx, uint8_t pinNumber, uint8_t mode);
 
 #endif /* INC_DRIVER_GPIO_H_ */

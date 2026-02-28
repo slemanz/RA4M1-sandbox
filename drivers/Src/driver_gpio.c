@@ -16,7 +16,7 @@ void GPIO_PfsweControl(uint8_t EnorDi)
 }
 
 
-void GPIO_Init(GPIO_PinConfig_t *pGPIOConfig)
+uint8_t GPIO_Init(GPIO_PinConfig_t *pGPIOConfig)
 {
     uint32_t temp = 0;
     if(pGPIOConfig->GPIO_PinMode == GPIO_MODE_OUT)
@@ -39,11 +39,13 @@ void GPIO_Init(GPIO_PinConfig_t *pGPIOConfig)
     temp |= (pGPIOConfig->GPIO_PinDrive << 10);
 
     uint32_t pfs_addr = gpio_get_pfs(pGPIOConfig->pPORT, pGPIOConfig->GPIO_PinNumber);
-    if(pfs_addr == 0) return;
+    if(pfs_addr == 0) return 1;
 
     GPIO_PfsweControl(ENABLE);
     MMIO32(pfs_addr) = temp;
     GPIO_PfsweControl(DISABLE);
+
+    return GPIO_OK;
 }
 
 void GPIO_Init_table(const GPIO_PinConfig_t *pGPIOConfig, uint32_t Len)
@@ -75,6 +77,16 @@ void GPIO_WriteToOutputPin(PORT_RegDef_t *pPORTx, uint8_t PinNumber, uint8_t val
 void GPIO_ToggleOutputPin(PORT_RegDef_t *pPORTx, uint8_t PinNumber)
 {
     pPORTx->PCNTR1 ^= (1U << (PinNumber + 16));
+}
+
+uint8_t    GPIO_ReadFromInputPin(PORT_RegDef_t *pPORTx, uint8_t PinNumber)
+{
+    return 0;
+}
+
+void    GPIO_SetPinMode(PORT_RegDef_t *pGPIOx, uint8_t pinNumber, uint8_t mode)
+{
+    return;
 }
 
 static uint32_t gpio_get_pfs(PORT_RegDef_t *pPORTx, uint8_t pin)
